@@ -20,6 +20,14 @@ func main() {
 	}
 
 	log.Print("success in connecting db.")
-
 	log.Print("%T", db)
+
+	defer db.Close()
+
+	db.AutoMigrate(&Product{}) // マイグレーション
+
+	db.Create(&Product{ // データの挿入
+		Code: "L1212",
+		Price: 1000,
+	})
 }
