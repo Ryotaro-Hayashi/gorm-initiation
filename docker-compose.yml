@@ -12,6 +12,7 @@ services:
     container_name: api
     volumes:
       - .:/gorm-initiation
+    command: go run server.go
 
   mysql:
     image: mysql:5.7.22
