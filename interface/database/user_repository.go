@@ -9,7 +9,7 @@ type UserRepository struct {
 	SqlHandler
 }
 
-func (repository *UserRepository) FindAll() (users domain.Users){
-	users = repository.SqlHandler.Find()
+func (repository *UserRepository) FindAll() (users domain.Users, err error){
+	users, err = repository.SqlHandler.Find()
 	return
 }

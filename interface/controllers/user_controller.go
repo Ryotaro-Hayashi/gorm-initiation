@@ -23,7 +23,11 @@ func NewUserController(sqlHandler database.SqlHandler) UserController {
 
 // *gin.Contextは、DIPで用意
 func (controller *UserController) Index(c Context) {
-	users := controller.UserInteractor.GetUsers()
+	users, err := controller.UserInteractor.GetUsers()
+	if err != nil {
+		c.JSON(500, err)
+		return
+	}
 	
 	c.JSON(200, users)
 }
