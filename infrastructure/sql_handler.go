@@ -14,7 +14,6 @@ type SqlHandler struct {
 // database.SqlHandlerはinterfaceであり、ポインタ型
 func NewSqlHandler() database.SqlHandler {
 	db, err := gorm.Open("mysql", "root:rootpass@tcp(mysql:3306)/gorm_db")
-	defer db.Close()
 	if err != nil {
 		panic(err.Error())
 	}

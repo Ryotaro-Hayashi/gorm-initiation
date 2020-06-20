@@ -32,8 +32,8 @@ services:
     # workbench と接続するためにホストとコンテナを接続
 
     # これがあるとなぜかpanic: dial tcp 172.26.0.2:3306: connect: connection refusedなどの不具合が出る
-    # ports:
-    #   - "3306:3306"
+    ports:
+      - "3306:3306"
 
 # docker のリソースとしてのvolume
 volumes:
