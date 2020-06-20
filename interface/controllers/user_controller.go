@@ -11,8 +11,9 @@ type UserController struct {
 
 // database.SqlHandlerはinterfaceでありポインタ型
 // database.UserRepositoryもinterfaceがポインタなのでポインタにしなければならない
-func NewUserController(sqlHandler database.SqlHandler) UserController {
-	return UserController {
+// routerでNewUserControllerを引数に渡すことからメモリ削減の観点でUserControllerをポインタで返す
+func NewUserController(sqlHandler database.SqlHandler) *UserController {
+	return &UserController {
 		UserInteractor: usecase.UserInteractor {
 			UserRepository: &database.UserRepository {
 				SqlHandler: sqlHandler,

@@ -32,6 +32,7 @@ func NewSqlHandler() database.SqlHandler {
 
 // interface/databaseとusecaseのinterfaceの実装
 func (sqlHandler *SqlHandler) Find() (users domain.Users, err error){
+	// データを取得して、users と err に格納
 	err = sqlHandler.Conn.Find(&users).Error
 
 	return
