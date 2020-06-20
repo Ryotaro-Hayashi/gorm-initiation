@@ -5,5 +5,5 @@ import (
 )
 
 type UserRepository interface {
-	FindAll() (users domain.Users)
+	FindAll() (users domain.Users, err error)
 }

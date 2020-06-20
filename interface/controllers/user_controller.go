@@ -11,8 +11,9 @@ type UserController struct {
 
 // database.SqlHandlerはinterfaceでありポインタ型
 // database.UserRepositoryもinterfaceがポインタなのでポインタにしなければならない
-func NewUserController(sqlHandler database.SqlHandler) UserController {
-	return UserController {
+// routerでNewUserControllerを引数に渡すことからメモリ削減の観点でUserControllerをポインタで返す
+func NewUserController(sqlHandler database.SqlHandler) *UserController {
+	return &UserController {
 		UserInteractor: usecase.UserInteractor {
 			UserRepository: &database.UserRepository {
 				SqlHandler: sqlHandler,
@@ -23,7 +24,11 @@ func NewUserController(sqlHandler database.SqlHandler) UserController {
 
 // *gin.Contextは、DIPで用意
 func (controller *UserController) Index(c Context) {
-	users := controller.UserInteractor.GetUsers()
+	users, err := controller.UserInteractor.GetUsers()
+	if err != nil {
+		c.JSON(500, err)
+		return
+	}
 	
 	c.JSON(200, users)
 }

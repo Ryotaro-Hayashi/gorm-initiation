@@ -5,5 +5,5 @@ import (
 )
 
 type SqlHandler interface {
-	Find() (users domain.Users)
+	Find() (users domain.Users, err error)
 }

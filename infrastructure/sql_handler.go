@@ -14,7 +14,6 @@ type SqlHandler struct {
 // database.SqlHandlerはinterfaceであり、ポインタ型
 func NewSqlHandler() database.SqlHandler {
 	db, err := gorm.Open("mysql", "root:rootpass@tcp(mysql:3306)/gorm_db")
-	defer db.Close()
 	if err != nil {
 		panic(err.Error())
 	}
@@ -32,7 +31,9 @@ func NewSqlHandler() database.SqlHandler {
 }
 
 // interface/databaseとusecaseのinterfaceの実装
-func (sqlHandler *SqlHandler) Find() (users domain.Users){
-	sqlHandler.Conn.Find(&users)
+func (sqlHandler *SqlHandler) Find() (users domain.Users, err error){
+	// データを取得して、users と err に格納
+	err = sqlHandler.Conn.Find(&users).Error
+
 	return
 }
